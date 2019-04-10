@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block background_img %}{{ background_img }}{% endblock %}
+{% load static %}
+{% block includes %}
+    <link rel="stylesheet" href="{% static 'css/rf_question.css' %}">
+    <link rel="stylesheet" href="{% static 'css/magic.css' %}">
+{% endblock %}
+{% block content %}
+    <div id="quiz_name" hidden>{{ quiz.title }}</div>
+    <div id="increment_val" hidden>{{ increment }}</div>
+    <div id="decrement_val" hidden>{{ decrement }}</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 id="question"></h1>
+            </div>
+            <div class="col-md-3">
+                <span id="button_cross" class="button fa fa-times" onclick="wrong();"></span>
+
+            </div>
+            <div class="col-md-6">
+                <div id="timer">
+
+                </div>
+            </div>
+            <div class="col-md-3">
+                <span id="button_tick" class="button fa fa-check" onclick="correct();"></span>
+
+            </div>
+        </div>
+        <div id="scorer">
+
+        </div>
+    </div>
+
+{% endblock %}
+{% block scripts %}
+    <script>
+        questions = [
+            {% for q in questions %}
+                "{{ q }}",
+            {% endfor %}
+        ];
+        timer_time = {{ timer }};
+    </script>
+    <script src="{% static 'js/progressbar.js' %}" charset="utf-8"></script>
+    <script src="{% static 'js/rf_question.js' %}" charset="utf-8"></script>
+
+    <script>
+        loadNavBar(function () {
+          $rfbutton = $('<div class="col-md-1"><a href="#" onclick="openurl(\'/quiz/rapidfire/\');"><i class="fa fa-step-backward"></i></a></div>');
+          $("#navigation_links").append($rfbutton);
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load static %}
+{% block includes %}
+    <link rel="stylesheet" href="{% static 'css/navigation.css' %}"/>
+    <style>
+        body {
+
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="container" style="  margin-top: 0% !important;">
+        <div class="row" id="navigation_links">
+            <div class="col-md-1"><a href="/quiz/"><i class="fa fa-home"></i></a></div>
+            <div class="col-md-1"><a href="/scoreboard/"><i class="fa fa-table"></i></a></div>
+        </div>
+    </div>
+{% endblock %}

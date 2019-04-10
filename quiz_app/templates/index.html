@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Quiz Intro{% endblock %}
+{% block includes %}
+    <style>
+        body {
+            overflow: hidden;
+        }
+    </style>
+{% endblock %}
+{% block background_img %}{% if show != "home" %}{{ intro_img_src }}{% endif %}{% endblock %}
+{% block content %}
+    <div id="trigger" style="width: 100vw; height:100vh;" onclick="openurl('?page=intro')">
+    </div>
+
+{% endblock %}
+{% block scripts %}
+    <script type="text/javascript">
+            $("#trigger").attr('onclick', 'openurl("/team")');
+    </script>
+{% endblock %}

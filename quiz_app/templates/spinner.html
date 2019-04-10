@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block includes %}
+    <link rel="stylesheet" href="{% static 'css/quizzes.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/spinner.css' %}"/>
+    <link href='http://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
+    <script language="javascript" type="text/javascript" src="{% static 'js/p5.js' %}"></script>
+    <script language="javascript" type="text/javascript" src="{% static 'js/p5.dom.js' %}"></script>
+    <script language="javascript" type="text/javascript" src="{% static 'js/data.js' %}"></script>
+    <script language="javascript" type="text/javascript" src="{% static 'js/randomizer.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/howler.js' %}">
+      
+    </script>
+{% endblock %}
+
+<style>
+    body {
+        background-color: #000000;
+        font-family: 'Source Code Pro', serif;
+        font-size: 16px;
+    }
+
+    .button {
+        font-family: 'Source Code Pro', serif;
+        font-size: 16px;
+        width: 200px;
+    }
+</style>
+{% block content %}
+
+    {% for quiz in quizzes %}
+        <div class="quizzes" hidden>{{ quiz.title }}</div>
+    {% endfor %}
+
+{% endblock %}
+{% block scripts %}
+    <script>
+        loadNavBar();
+    </script>
+
+{% endblock %}

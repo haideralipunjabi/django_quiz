@@ -1,0 +1,36 @@
+.container {
+    //border: 3px solid white;
+    position: relative;
+    //margin-left: 50px;
+    left: 80px;
+}
+
+.team_photo {
+    position: relative;
+    margin-top: 25vh;
+    margin-left: 100px;
+    /* height: 300px; */
+    width: 512px;
+    border: 5px double white;
+}
+
+.team_info_container {
+    color: white;
+    position: relative;
+    margin-top: 25vh;
+    border: 2px dashed;
+  
+}
+
+.team_name {
+    font-size: 50px;
+    color: #ffffff !important;
+    margin-left: 20%;
+}
+
+.team_description {
+    font-size: 25px;
+    color: #ffffff !important;
+    margin-left: 20%;
+}
+

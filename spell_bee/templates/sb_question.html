@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Q {{ question.question_number }}{% endblock %}
+{% block includes %}
+    <link rel="stylesheet" href="{% static 'css/sb_question.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/magic.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/remodal.css' %}">
+    <link rel="stylesheet" href="{% static 'css/remodal-default-theme.css' %}">
+{% endblock %}
+{% block background_img %}{{ background_img }}{% endblock %}
+{% block content %}
+    <div id="quiz_name" hidden>{{ quiz.title }}</div>
+    <div id="time" hidden>{{ time }}</div>
+    <div id="increment_val" hidden>{{ increment }}</div>
+    <div id="decrement_val" hidden>{{ decrement }}</div>
+    <div id="teams" hidden>{{ teams|safe }}</div>
+    <div id="current_team" hidden>{{ team }}</div>
+    <div id="word" hidden>{{ question.word }}</div>
+    <div id="type" hidden>{{ question.word_type }}</div>
+    <div id="origin" hidden>{{ question.origin }}</div>
+    <div id="meaning" hidden>{{ question.meaning }}</div>
+    <div id="usage" hidden>{{ question.usage }}</div>
+    <div id="audio" hidden>{{ question.get_audio_url }}</div>
+    <div class="remodal" data-remodal-id="modal">
+        <button data-remodal-action="close" class="remodal-close"></button>
+        <h1 id="modal_title"></h1>
+        <p id="modal_description"></p>
+        <br>
+    </div>
+    <div id="content" class="container remodal-bg">
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div id="word_input_container" class="col-md-10">
+                <input id="word_input" type="text" maxlength='20' name="" value="">
+            </div>
+            <div class="col-md-1">
+                <button id="check" class="btn" onclick="checkWord()" type="button" name="button">CHECK</button>
+                <!-- <a href="#">
+                  <svg version="1.1" id="check-box" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                       width="373.16px" height="373.16px" viewBox="0 0 373.16 373.16" enable-background="new 0 0 373.16 373.16" xml:space="preserve">
+                  <path id="circle" fill="#51C5CF" stroke="#000000" stroke-miterlimit="10" d="M372.66,186.58c0,102.77-83.311,186.08-186.08,186.08
+                      C83.811,372.66,0.5,289.349,0.5,186.58C0.5,83.811,83.811,0.5,186.58,0.5C289.349,0.5,372.66,83.811,372.66,186.58z"/>
+                  <path id="check"  style="visibility:hidden" d="m.3,14c-0.2-0.2-0.3-0.5-0.3-0.7s0.1-0.5 0.3-0.7l1.4-1.4c0.4-0.4 1-0.4 1.4,0l.1,.1 5.5,5.9c0.2,0.2 0.5,0.2 0.7,0l13.4-13.9h0.1v-8.88178e-16c0.4-0.4 1-0.4 1.4,0l1.4,1.4c0.4,0.4 0.4,1 0,1.4l0,0-16,16.6c-0.2,0.2-0.4,0.3-0.7,0.3-0.3,0-0.5-0.1-0.7-0.3l-7.8-8.4-.2-.3z"/>
+                  <path id="cross" style="visibility:hidden" d="M336.559,68.611L231.016,174.165l105.543,105.549c15.699,15.705,15.699,41.145,0,56.85
+                        c-7.844,7.844-18.128,11.769-28.407,11.769c-10.296,0-20.581-3.919-28.419-11.769L174.167,231.003L68.609,336.563
+                        c-7.843,7.844-18.128,11.769-28.416,11.769c-10.285,0-20.563-3.919-28.413-11.769c-15.699-15.698-15.699-41.139,0-56.85
+                        l105.54-105.549L11.774,68.611c-15.699-15.699-15.699-41.145,0-56.844c15.696-15.687,41.127-15.687,56.829,0l105.563,105.554
+                        L279.721,11.767c15.705-15.687,41.139-15.687,56.832,0C352.258,27.466,352.258,52.912,336.559,68.611z"/>
+                  </svg>
+              </a> -->
+            </div>
+        </div>
+        <div class="row" id="hints_container">
+
+        </div>
+        <div id="flipclock">
+        </div>
+        <div id="pronunciation">
+          
+        </div>
+    </div>
+
+
+{% endblock %}
+{% block scripts %}
+    <script type="text/javascript" src="{% static 'js/remodal.js' %}"></script>
+    <script language="javascript" type="text/javascript" src="{% static 'js/palette.js' %}"></script>
+    <script language="javascript" type="text/javascript" src="{% static 'js/kute.min.js' %}"></script> <!-- core KUTE.js -->
+    <script type="text/javascript" src="{% static 'js/sb_question.js' %}"></script>
+    <script type="text/javascript">
+        loadNavBar(function () {
+            $nextbutton = $('<div class="col-md-1"><a href="#" onclick="nextQuestion();"><i class="fa fa-arrow-right"></i></a></div>');
+            $prevbutton = $('<div class="col-md-1"><a href="#" onclick="previousQuestion();"><i class="fa fa-arrow-left"></i></a></div>');
+            $clockbutton = $('<div class="col-md-1"><a href="#" onclick="toggleClock();"><i class="fa fa-clock-o"></i></a></div>')
+            $teamchange = $('<div class="col-md-2"><select id="teamchange" onchange="teamChange();"></select></div>');
+
+            $("#navigation_links").append($prevbutton);
+            $("#navigation_links").append($nextbutton);
+            $("#navigation_links").append($teamchange);
+            
+            $("#navigation_links").append($clockbutton);
+            $teams = $("#teams")[0].textContent.split(',');
+            $team = $("#current_team")[0].textContent;
+            $($teams).each(function(){
+              $("#teamchange").append('<option value="'+this.toString()+'">'+this.toString()+'</option>')
+            });
+            $("#teamchange")[0].value = $team;
+
+        });
+        loadHints();
+        loadPronouncitation();
+    </script>
+
+{% endblock %}

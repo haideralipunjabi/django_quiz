@@ -1,0 +1,10 @@
+#navbar{
+  position: absolute;
+  background-color: #cccccc;
+  width: 100%;
+  bottom: 0;
+}
+#navbar i{
+  font-size: 3em;
+  color: #000000;
+}

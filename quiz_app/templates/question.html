@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Q {{ question.question_number }}{% endblock %}
+{% block includes %}
+    <link rel="stylesheet" href="{% static 'css/question.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/remodal.css' %}">
+    <link rel="stylesheet" href="{% static 'css/remodal-default-theme.css' %}">
+    <link rel="stylesheet" href="{% static 'css/magic.css' %}">
+{% endblock %}
+{% block background_img %}{{ background_img }}{% endblock %}
+{% block content %}
+    <div id="quiz_name" hidden>{{ quiz.title }}</div>
+    <div id="time" hidden>{{ time }}</div>
+    <div id="explanation" hidden>{{ explanation }}</div>
+    <div id="increment_val" hidden>{{ increment }}</div>
+    <div id="decrement_val" hidden>{{ decrement }}</div>
+    <div id="teams" hidden>{{ teams|safe }}</div>
+    <div id="current_team" hidden>{{ team }}</div>
+    <div class="remodal" data-remodal-id="modal">
+        <button data-remodal-action="close" class="remodal-close"></button>
+        <h1 id="modal_title"></h1>
+        <p id="modal_description"></p>
+        <br>
+    </div>
+    <div id="content" class="container remodal-bg">
+      
+        {% if media_asset %}
+            <h2 id="media_asset" style="display:none;">{{ media_asset }}</h2>
+        {% endif %}
+        <div class="row">
+            <h2 id="question" class="col-md-12" style="display: none;">{{ question.content }}</h2>
+            <div id="media_container">
+            </div>
+            <div class="col-md-6 option_list">
+                <ul class="options">
+                    {% for option in first_half %}
+                        {% if option.is_correct %}
+                            <li><a class="option nohighlight button-icon" style="display:none;" onclick="show('correct')"><span class="option-icon"></span>{{ option }}</a></li>
+                        {% else %}
+                            <li><a class="option nohighlight button-icon" style="display:none;" onclick="show('wrong')"><span class="option-icon"></span>{{ option }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-md-6 option_list">
+                <ul class="options">
+                    {% for option in second_half %}
+                        {% if option.is_correct %}
+                            <li><a class="option nohighlight button-icon" style="display:none;" onclick="show('correct')"><span class="option-icon"></span>{{ option }}</a></li>
+                        {% else %}
+                            <li><a class="option nohighlight button-icon" style="display:none;" onclick="show('wrong')"><span class="option-icon"></span>{{ option }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+            
+        </div>
+    
+    </div>
+    <div id="flipclock">
+      
+    </div>
+    <div id="correct" style="display:none;">
+        <h2>CORRECT</h2>
+    </div>
+    <div id="wrong" style="display:none;">
+        <h2>WRONG</h2>
+    </div>
+    <div id="explanation" style="display:none;">
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+            ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+            nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+            anim id est laborum.
+        </p>
+    </div>
+
+{% endblock %}
+{% block scripts %}
+    <script type="text/javascript" src="{% static 'js/question.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/remodal.js' %}"></script>
+    <script language="javascript" type="text/javascript" src="{% static 'js/palette.js' %}"></script>
+    <script type="text/javascript">
+        checkMedia();
+        loadNavBar(function () {
+            $nextbutton = $('<div class="col-md-1"><a href="#" onclick="nextQuestion();"><i class="fa fa-arrow-right"></i></a></div>');
+            $prevbutton = $('<div class="col-md-1"><a href="#" onclick="previousQuestion();"><i class="fa fa-arrow-left"></i></a></div>');
+            $explainbutton = $('<div class="col-md-1"><a onclick="show(\'explanation\');"><i class="fa fa-info"></i></a></div>');
+            $questionbutton = $('<div class="col-md-1"><a href="#" onclick="show(\'content\');"><i class="fa fa-quora"></i></a></div>');
+            $teamchange = $('<div class="col-md-2"><select id="teamchange" onchange="teamChange();"></select></div>');
+              
+            $clockbutton = $('<div class="col-md-1"><a href="#" onclick="toggleClock();"><i class="fa fa-clock-o"></i></a></div>');
+            $5050button = $('<div class="col-md-1"><a href="#" onclick="fifty_fifty();"><i class="fa fa-random"></i></a></div>');
+            $outboxbutton = $('<div class="col-md-1"><a href="#" onclick="loadfromOutbox();"><i class="fa fa-mail-reply-all"></i></a></div>');
+            $highlight = $('<div class="col-md-1"><a href="#" onclick="highlightCorrect();"><i class="fa fa-check"></i></a></div>');
+            $("#navigation_links").append($prevbutton);
+            $("#navigation_links").append($nextbutton);
+            $("#navigation_links").append($explainbutton);
+            $("#navigation_links").append($teamchange);
+            $("#navigation_links").append($clockbutton);
+            $("#navigation_links").append($5050button);
+            $("#navigation_links").append($outboxbutton);
+            $("#navigation_links").append($highlight);
+            $teams = $("#teams")[0].textContent.split(',');
+            $team = $("#current_team")[0].textContent;
+            $($teams).each(function(){
+              $("#teamchange").append('<option value="'+this.toString()+'">'+this.toString()+'</option>')
+            });
+            $("#teamchange")[0].value = $team;
+        });
+        
+    </script>
+
+{% endblock %}

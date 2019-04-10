@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block includes %}
+    <link rel="stylesheet" href="{% static 'css/quizzes.css' %}"/>{% endblock %}
+{% block background_img %}{{ background_img }}{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <h1 id="title">Choose a quiz</h1>
+            <div class="col-md-6 quiz_list">
+                <ul id="quizzes">
+                    {% for quiz in first_half %}
+                        <li><a href="/quiz/{{ quiz.title }}">{{ quiz.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-md-6 quiz_list">
+                <ul id="quizzes">
+                    {% for quiz in second_half %}
+                        <li><a href="/quiz/{{ quiz.title }}">{{ quiz.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <button onclick="randomSelection()" class="btn-primary"
+                    style="font-size: 3em; text-align: center; margin-left: 35%;width: 25%;" type="button"
+                    name="button">SPIN
+            </button>
+        </div>
+    </div>
+
+{% endblock %}
+{% block scripts %}
+
+    <script>
+        loadNavBar();
+    </script>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{ quiz.title }}{% endblock %}
+{% block includes %}
+    <link rel="stylesheet" href="{% static 'css/quiz_info.css' %}"/>
+    <script type="text/javascript" src="{% static 'js/questions.js' %}"></script>
+{% endblock %}
+{% block background_img %}{{ background_img }}{% endblock %}
+{% block content %}
+    <div class="container">
+        <h1 id="title">{{ quiz.title }}</h1>
+        <h4 id="description">{{ quiz.description }}<br></h4>
+        <div class="row questions">
+            {% for question in questions %}
+                <div class="col-md-1 question_container">
+                    <a class="question"
+                       href="{% if not is_sb %}{{ quiz.title }}/{% else %}{% endif %}question?qid={{ question.question_number }}">Q{{ question.question_number }}</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}
+{% block scripts %}
+    <script>
+        loadNavBar();
+    </script>
+{% endblock %}

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/flipclock.css'%}">
+    <style>
+    body{
+      overflow: hidden;
+    }
+    </style>
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery.hotkeys.js' %}"></script>
+    <script src="{% static 'js/jquery.cookie.js' %}"></script>
+    <script src="{% static 'js/javascript.js' %}"></script>
+    <script src="{% static 'js/flipclock.js' %}"></script>
+    <script src="{% static 'js/howler.js' %}"></script>
+    
+    {% block includes %}{% endblock %}
+</head>
+<body style="background-image: url('{% block background_img %}{% endblock %}');height: 100%;background-repeat: no-repeat;background-size: cover;"
+      onclick="{% block body_onclick %}"{% endblock %}>
+<div class=".wrapper">
+    {% block content %} {% endblock %}
+</div>
+<div id="navbar">
+
+</div>
+{% block scripts %}
+{% endblock %}
+</body>
+
+</html>

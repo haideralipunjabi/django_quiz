@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+{% block includes %}
+    <link rel="stylesheet" href="{% static 'css/team.css' %}">{% endblock %}
+{% block background_img %}{{ background_img }}{% endblock %}
+{% block body_onclick %}open{% endblock %}
+{% block content %}
+    <div id="last_team" hidden>{{ last_team }}</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 team_info_container">
+                <h2 class="team_name" onclick="nextTeam()">{{ team.name }}</h2>
+                <p class="team_description">{% for x in team.description %}{{ x }}<br/>{% endfor %}</p>
+            </div>
+            <div class="col-md-6 team_photo_container">
+                <img class="team_photo" src="{{ team.get_image_url }}"/>
+            </div>
+        </div>
+    </div>
+{% endblock %}

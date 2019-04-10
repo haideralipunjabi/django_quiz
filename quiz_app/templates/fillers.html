@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block includes %}
+  <style media="screen">
+    body {
+        background-color: #f44336 !important;
+      }
+    </style>
+  {% endblock %}
+  {% block content %} 
+<div class="container" style="margin-top: 50px;">
+  <div class="col-md-12">
+    <h1 style="font-size:4em; text-align:center; color: #fff;">FILLERS</h1>
+  </div>
+  {% for filler in fillers %}
+    <div class="col-md-4" style="margin-top: 200px;">
+      <video src="{{ filler.get_video }}" width="100%" controls></video>
+        <h1 class="video_title" style="text-align: center; color: #fff;">{{ filler.name }}</h1>
+    </div>
+    
+      <!-- <a href="{{ filler.get_video }}">{{ filler.name }}</a> -->
+  {% endfor %}
+</div>
+    
+{% endblock %}
+{% block scripts %} 
+<script type="text/javascript">
+  $(".video_title").each(function(index){
+    if(this.innerText.length > 14)
+    {
+      this.innerText  = this.innerText.slice(0,14) + "..."
+    }
+  });
+
+</script>
+<script type="text/javascript">
+loadNavBar(function(){
+  
+});
+</script>
+{% endblock %}

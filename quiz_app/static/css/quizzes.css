@@ -1,0 +1,32 @@
+
+a:hover {
+    text-decoration: none;
+}
+
+#quizzes {
+    margin-top: 50%;
+}
+
+#quizzes > li {
+    color: #ffffff00 !important;
+    text-align: justify;
+}
+
+#quizzes > li > a {
+    color: #ffffff !important;
+    font-size: 50px;
+
+}
+#quizzes > li > a.selected {
+  color: #ff0000 !important;
+} 
+
+#title {
+    font-size: 80px;
+    color: #ffffff;
+    text-align: center;
+}
+.quiz_list{
+    position: relative;
+    left: 10%;
+}

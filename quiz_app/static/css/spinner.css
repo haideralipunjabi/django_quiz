@@ -1,0 +1,21 @@
+button {
+  background-color: #fff;
+}
+.button {
+  width: 100px;
+  height: 50px;
+}
+div {
+  font-size: 25px !important;
+}
+
+#spellbee_button {
+  background-image: url("/static/media/bee.svg");
+  background-position: center center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+}
+#spellbee_button:hover {
+  background-color: #fff;
+}

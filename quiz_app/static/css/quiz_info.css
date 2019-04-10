@@ -1,0 +1,29 @@
+.body{
+ 
+}  
+
+#title{
+  font-size: 80px;
+  color: #ffffff;
+  text-align: center;
+}
+
+#description{
+  padding-top: 20px;
+  font-size: 45px;
+  color: #ffffff;
+  text-align: center;
+}
+
+.questions {
+  padding: 50px;
+}
+
+.question{
+  font-size: 50px;
+  color: #ffffff;
+}
+
+.question_container {
+  margin-left: 30px;
+}

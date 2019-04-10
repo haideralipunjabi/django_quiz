@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block includes %}
+    <style>
+        body {
+            overflow: scroll !important;
+        }
+
+        li {
+            font-size: 20px !important;
+        }
+
+        h1 {
+            text-align: center;
+        }
+    </style>
+
+{% endblock %}
+{% block content %}
+    <h1>{{ quiz }}</h1><br>
+    <ul>
+        {% for q in questions %}
+            <li>
+                {% if is_sb %}
+                    Word: {{ q.word }}<br>
+                    Origin: {{ q.origin }}<br>
+                    Meaning: {{ q.meaning }}<br>
+                    Usage: {{ q.usage }}<br>
+                {% else %}
+                    {{ q.content }}<br>
+                    {% if not is_rf %}
+                        {% for opt in q.option_set.all %}
+                            {% if opt.is_correct %}
+                                <u>{{ opt }}</u><br>
+                            {% else %}
+                                {{ opt }}<br>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        Answer: {{ q.answer }}<br>
+                    {% endif %}
+                {% endif %}
+            </li><br>
+        {% endfor %}
+    </ul>
+    {% if not is_rb or is_sb %}
+        {% if outbox %}
+            <h1>Outbox</h1>
+            <ul>
+                {% for q in outbox %}
+                    <li>
+                        {{ q.content }}<br>
+                        {% for opt in q.option_set.all %}
+                            {% if opt.is_correct %}
+                                <u>{{ opt }}</u><br>
+                            {% else %}
+                                {{ opt }}<br>
+                            {% endif %}
+                        {% endfor %}
+                    </li><br>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endif %}
+{% endblock %}

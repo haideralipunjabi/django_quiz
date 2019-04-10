@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Scoreboard{% endblock %}
+{% block includes %}
+    <link rel="stylesheet" href="{% static 'css/scoreboard.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}"/>
+    <script language="javascript" type="text/javascript" src="{% static 'js/countUp.js' %}"></script>
+    <script language="javascript" type="text/javascript" src="{% static 'js/countUp-jquery.js' %}"></script>
+    <script language="javascript" type="text/javascript" src="{% static 'js/Chart.min.js' %}"></script>
+    <script language="javascript" type="text/javascript" src="{% static 'js/palette.js' %}"></script>
+    <script language="javascript" type="text/javascript" src="{% static 'js/scoreboard.js' %}"></script>
+{% endblock %}
+{% block background_img %}{{ background_img }}{% endblock %}
+{% block content %}
+    <div id="drawing_area" class="animated">
+
+    </div>
+    <div id="drawing_area_2" class="animated">
+
+    </div>
+    <div id="scores_total" class="row">
+        {% for team, score in team_score_dict.items %}
+
+            <div class="col-md-3">
+                <h1 class="score"> {{ score }}</h1>
+                <h3> {{ team }} </h3>
+            </div>
+        {% endfor %}
+
+    </div>
+{% endblock %}
+{% block scripts %}
+
+    <script type="text/javascript">
+
+        animScore();
+        loadData();
+        loadNavBar(function () {
+            $toggleAnim = $('<div class="col-md-1"><a onclick="toggleAnimation();"><i id="toggleAnim" class="fa fa-pause"></i></a></div>');
+            $("#navigation_links").append($toggleAnim);
+        });
+
+    </script>
+
+{% endblock %}
